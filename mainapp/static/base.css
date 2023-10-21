@@ -2,12 +2,12 @@
     margin:0px;
     padding:0px;
     box-sizing: border-box;
-    color:aliceblue;
 }
 html,body{
     height:100%;
     width:100%;
     font-family: 'Roboto', sans-serif;
+    color:aliceblue;
 }
 body{
     background: url('images/background.jpg');
@@ -39,16 +39,18 @@ nav ul li a{
     color: inherit;
     transition: all 0.3s ease;
 }
-footer{
-    position:absolute;
-    bottom:0px;
-    background: fixed;
-    width:100%;
+footer {
+    position: absolute;
+    bottom: 0px;
+    background: transparent;
+    width: 100%;
+    backdrop-filter: blur(100px);
+    min-height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-footer p{
-    text-align: center;
-    width:100%;
-}
+
 footer p a{
     text-decoration: none;
 }

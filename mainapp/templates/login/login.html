@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendo</title>
+    <link rel="stylesheet" href="{% static 'login/login.css' %}">
+
+</head>
+<body>
+<nav>
+    <div class="sub-nav">Attendo</div>
+</nav>
+<div class="container">
+    <h1>Login</h1>
+    <div class="inner-container">
+    <div class="username innermost-container">
+        <label for="username">Username:</label><input type="text" placeholder="Username" name="username" id="username">
+    </div>
+    <div class="pass innermost-container">
+        <label for="password">Password:</label><input type="password" placeholder="Password" name="password" id="password">
+    </div>
+    <div class="type innermost-container">
+        <label for="type">Type:</label>
+        <select name="type" id="type">
+            <option value="professor">Professor</option>
+            <option value="admin">Admin</option>
+        </select>
+    </div>
+    <div class="submit"><button>Submit</button></div>
+</div>
+</div>
+<footer>
+    <p><a href="https://www.linkedin.com/in/mpaantoijl">@copyright;   2023 Manoj Patil</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,122 @@
+*{
+    margin:0px;
+    padding:0px;
+    box-sizing: border-box;
+}
+html,body{
+    height:100%;
+    width:100%;
+    font-family: 'Roboto', sans-serif;
+    color:aliceblue;
+}
+body{
+    background: url('../images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+nav{
+    margin-bottom: 2rem;
+    padding:1rem;
+    background-color: #516c6b95;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(2px);
+}
+.submit{
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+nav div{
+    font-weight: 700;
+    pointer-events: none;
+    user-select: none;
+}
+.container {
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
+    border-radius: .5rem;
+    padding:1rem;
+    backdrop-filter: blur(17px);
+    display: flex;
+    position: absolute;
+    left: 25vw;
+    width: 50vw;
+    height: 60vh;
+    flex-direction: column;
+    align-items: center;
+}
+input,select {
+    border-radius: .2rem;
+    width: 20vw;
+    height: 4vh;
+    border: gray;
+    background: transparent;
+    border-block-style: revert;
+    color: rgb(243, 242, 241);
+    font-size: 1.2rem;
+}
+select{
+    opacity: .7;
+}
+::placeholder { 
+    color: rgb(253, 253, 253);
+    opacity: 0.7; /* Firefox */
+  }
+option {
+    display: flex;
+    color: black;
+    white-space-collapse:collapse;
+    text-wrap: nowrap;
+    min-height: 1.2em;
+    padding: 0px 2px 1px;
+}
+.container h1{
+    text-align: center;
+}
+.inner-container {
+    display: flex;
+    color:black;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+label{
+    color:aliceblue;
+}
+.innermost-container{
+    gap:.5rem;
+    display: flex;
+    flex-direction: column;
+}
+button{
+    width: 18vw;
+    height: 5vh;
+    border-radius: .5rem;
+    border: none;
+    background: #000000ad;
+    color: aliceblue;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+button:hover{
+    transform: scale(1.1);
+    transition: all .2s ease-in-out;
+}
+footer {
+    position: absolute;
+    bottom: 0px;
+    background: transparent;
+    width: 100%;
+    backdrop-filter: blur(100px);
+    min-height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer p a{
+    text-decoration: none;
+    color:azure;
+}

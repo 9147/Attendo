@@ -12,10 +12,10 @@
     justify-content: center;
     min-height: 80vh;
     align-items: center;
-    gap:2rem;
-    height:70vh;
+    gap: 3rem;
+    height: 70vh;
     overflow: scroll;
-
+    align-content: center;
 }
 .container>*{
     cursor: pointer;
