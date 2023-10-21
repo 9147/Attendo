@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendo</title>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    {% block css %}{% endblock %}
+</head>
+<body>
+<nav>
+    <div class="sub-nav">Attendo</div>
+    <ul class="sub-nav">
+        <li><a href="{% url 'mainapp:home' %}">Home</a></li>
+        <li><a href="{% url 'mainapp:about' %}">About</a></li>
+        <li><a href="{% url 'mainapp:docs' %}">Docs</a></li>
+    </ul>
+</nav>
+{% block content %}{% endblock %}
+<footer>
+    <!-- add footer -->
+    <p><a href="www.linkedin.com/in/mpaantoijl">@copyright;   2023 Manoj Patil</a></p>
+</footer>
+</body>
+</html>
