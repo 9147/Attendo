@@ -5,9 +5,16 @@
 {% endblock css %}
 {% block content %}
     <div class="container">
+        {% if user.is_superuser %}
         <div class="options">Add/edit class</div>
         <div class="options">Add/edit Professor</div>
         <div class="options">Add/edit Subjects </div>
         <div class="options">Add/Edit Students list</div>
+        {% else %}
+        {% for i in data %}
+        <div class="options">{{i.name}}</div>
+        {% endfor %}
+        {% endif %}
+
     </div>
 {% endblock content %}

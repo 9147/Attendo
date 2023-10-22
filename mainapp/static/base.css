@@ -2,6 +2,7 @@
     margin:0px;
     padding:0px;
     box-sizing: border-box;
+    color: aliceblue;
 }
 html,body{
     height:100%;
@@ -52,5 +53,6 @@ footer {
 }
 
 footer p a{
+    color:white;
     text-decoration: none;
 }

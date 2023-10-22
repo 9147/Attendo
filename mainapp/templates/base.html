@@ -6,6 +6,7 @@
     <title>Attendo</title>
     <link rel="stylesheet" href="{% static 'base.css' %}">
     {% block css %}{% endblock %}
+
 </head>
 <body>
 <nav>
@@ -13,7 +14,9 @@
     <ul class="sub-nav">
         <li><a href="{% url 'mainapp:home' %}">Home</a></li>
         <li><a href="{% url 'mainapp:about' %}">About</a></li>
-        <li><a href="{% url 'mainapp:docs' %}">Docs</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'login:logout' %}">Logout</a></li>
+        {% endif %}
     </ul>
 </nav>
 {% block content %}{% endblock %}

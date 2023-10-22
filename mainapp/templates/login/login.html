@@ -1,18 +1,16 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Attendo</title>
-    <link rel="stylesheet" href="{% static 'login/login.css' %}">
+{% extends 'base.html' %}
 
-</head>
-<body>
-<nav>
-    <div class="sub-nav">Attendo</div>
-</nav>
-<div class="container">
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'login/login.css' %}">
+<script src="{% static 'jquery-3.7.1.min.js' %}"></script>
+
+{% endblock css %}
+{% block content %}
+
+<div class="container" id="container">
     <h1>Login</h1>
+    {% csrf_token %}
     <div class="inner-container">
     <div class="username innermost-container">
         <label for="username">Username:</label><input type="text" placeholder="Username" name="username" id="username">
@@ -27,11 +25,10 @@
             <option value="admin">Admin</option>
         </select>
     </div>
-    <div class="submit"><button>Submit</button></div>
+    <div class="submit" onclick="login()"><button>Submit</button></div>
 </div>
 </div>
-<footer>
-    <p><a href="https://www.linkedin.com/in/mpaantoijl">@copyright;   2023 Manoj Patil</a></p>
-</footer>
-</body>
-</html>
+
+<script type="text/javascript" src="{% static '/login/login.js' %}"></script>
+
+{% endblock content %}
