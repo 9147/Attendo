@@ -7,17 +7,32 @@
 {% block content %}
 <div class="block">
     <form class="inner-block" action="send/{{id}}" method="post">
+        <div class="form-container">
+        <table class="form-table">
         {% csrf_token %}
         {% for a, b in attr %}
-        <div class="container">
-        <div class="attr">{{a}}</div>
-        <input type="{{b}}" value="{% if data %}{{ data|getattribute:a }}{%endif%}" name="{{a}}" id="{{a}}" class="feilds" {% if  a != "partial" %}required {% endif %}>
-    </div>
+        <tr>
+        <td><label for="{{a}}" class="attr">{{a}}</label></td>
+        <td><input type="{{b}}" value="{% if data %}{% if a != 'password' %}{{ data|getattribute:a }}{%endif%}{%endif%}" name="{{a}}" id="{{a}}" class="feilds {{option}}" {% if  a != "partial" %}required {% endif %}></td>
+    </tr>
+
         {% endfor %}
+    </table>
+    </div>
         <input type="submit" class="submit">
+    
     </form>
 </div>
-
+<select id="cid_data" style="display:none" name="cid_id" >
+    {% for a in class %}
+    <option value="{{a.cid}}">{{a.name}}</option>
+    {% endfor %}
+</select>
+<select id="pid_data" style="display:none" name="prof_id">
+    {% for a in prof %}
+    <option value="{{a.id}}">{{a.username}}</option>
+    {% endfor %}
+</select>
 <script type="text/javascript" src="{% static 'jquery-3.7.1.min.js' %}"></script>
 <script type="text/javascript" src="{% static '/mainapp/editmain.js' %}"></script>
 {% endblock content %}

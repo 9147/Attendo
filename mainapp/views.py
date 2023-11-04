@@ -129,24 +129,22 @@ def editmain(request,option,id):
             data=Subject.objects.get(sid=id)
             print(data)
     elif option=='prof':
-        attr=['id', 'username', 'first_name', 'last_name', 'email']
-        type=['number','text','text','text','email']
+        attr=['id', 'username', 'first_name', 'last_name', 'email','password']
+        type=['number','text','text','text','email','password']
         if id!='00':
             data=User.objects.get(id=id)
     attr=zip(attr,type)
-
-    return render(request,'mainapp/editmain.html',{'id':id,'option':option,'attr':attr,'data':data})
+    return render(request,'mainapp/editmain.html',{'id':id,'option':option,'attr':attr,'data':data,'class':Class.objects.all(),'prof':User.objects.all()})
 
 @login_required(login_url="/login/")
 def update(request,option,id):
     if option=='stud':
         if id=='00':
-            print(request.POST.get('rollno'),request.POST.get('name'),request.POST.get('cid_id'),Class.objects.get(cid=request.POST.get('cid_id')))
+
             val=Student(rollno=request.POST.get('rollno'),name=request.POST.get('name'),cid=Class.objects.get(cid=request.POST.get('cid_id')))
             val.save()
         else:
-            print(request.POST.get('rollno'), request.POST.get('name'), request.POST.get('cid_id'),
-                  Class.objects.get(cid=request.POST.get('cid_id')))
+
             val=Student.objects.get(rollno=id)
             val.rollno=request.POST.get('rollno')
             val.name=request.POST.get('name')
@@ -186,14 +184,18 @@ def update(request,option,id):
             #     val.save()
     elif option=='prof':
         if id=='00':
+            # print("password:",request.POST.get('password'))
             val=User(username=request.POST.get('username'),first_name=request.POST.get('first_name'),last_name=request.POST.get('last_name'),email=request.POST.get('email'))
+            val.set_password(request.POST.get('password'))
             val.save()
         else:
+            # print("password:",request.POST.get('password'))
             val=User.objects.get(id=id)
             val.username=request.POST.get('username')
             val.first_name=request.POST.get('first_name')
             val.last_name=request.POST.get('last_name')
             val.email=request.POST.get('email')
+            val.set_password(request.POST.get('password'))
             val.save()
     print('/edit/'+option+'/'+id)
     return HttpResponseRedirect('/edit/'+option)

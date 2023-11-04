@@ -7,17 +7,26 @@
     align-items: center;
 }
 .inner-block {
-    display: flex;
     height: 90%;
     min-width: 400px;
     max-width: 50%;
+    display: flex;
     /* background-color: rgb(255, 0, 162); */
     border: solid 1px #ccc;
     backdrop-filter: blur(10px);
     border-radius: .4rem;
-    overflow-y: auto;
+    padding-top:1rem;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
+}
+.form-table{
+    width:calc(100% - 4rem);
+    margin:0 2rem;
+}
+.form-container{
+    overflow-y: auto;
+    max-height: 70%;
 }
 input {
     background: transparent;
@@ -28,11 +37,53 @@ input {
     margin: .4rem;
     color: white;
 }
-.submit{
-    /* background-color: rgb(255, 0, 162); */
-    border-radius: 10px;
+.submit {
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: white;
+    color: black;
     padding: .4rem;
     display: block;
-    margin: 1rem;
+    width: 100%;
+    margin-bottom: 0;
+    min-height: 3rem;
     cursor: pointer;
+    border-radius: 0;
 }
+.submit:hover {
+    background-color: black;
+    color:white;
+}
+
+select {
+    min-width: 10em;
+    padding: 0.5rem;
+    background: transparent;
+    border: #444 solid;
+    border-radius: 1em;
+    margin: .4rem;
+    color: inherit;
+    font: inherit;
+}
+
+.fixed option {
+    background: indigo;
+  }
+
+select.solid {
+    background: #222;
+}
+
+select {
+    text-transform: capitalize;
+    display: block;
+    margin-top: auto;
+}
+.attr{
+    text-transform: capitalize;
+}
+option {
+    text-transform: capitalize;
+    font: inherit;
+    color:black;
+  }
