@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <title>Attendo</title>
     <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
     {% block css %}{% endblock %}
 
 </head>
 <body>
 <nav>
-    <div class="sub-nav">Attendo</div>
+    <img src="{% static 'images/logo.png' %}" class="sub-nav" alt="logo" height="100%">
     <ul class="sub-nav">
         <li><a href="{% url 'mainapp:home' %}">Home</a></li>
         <li><a href="{% url 'mainapp:about' %}">About</a></li>

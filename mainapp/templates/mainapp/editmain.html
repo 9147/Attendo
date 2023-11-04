@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+{% load getattribute %}
+<link rel="stylesheet" href="{% static 'mainapp/editmain.css' %}">
+{% endblock css %}
+{% block content %}
+<div class="block">
+    <form class="inner-block" action="send/{{id}}" method="post">
+        {% csrf_token %}
+        {% for a, b in attr %}
+        <div class="container">
+        <div class="attr">{{a}}</div>
+        <input type="{{b}}" value="{% if data %}{{ data|getattribute:a }}{%endif%}" name="{{a}}" id="{{a}}" class="feilds" {% if  a != "partial" %}required {% endif %}>
+    </div>
+        {% endfor %}
+        <input type="submit" class="submit">
+    </form>
+</div>
+
+<script type="text/javascript" src="{% static 'jquery-3.7.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static '/mainapp/editmain.js' %}"></script>
+{% endblock content %}

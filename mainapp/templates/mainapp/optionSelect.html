@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'mainapp/optionSelect.css' %}">
+
+{% endblock css %}
+{% block content %}
+<div class="selection-container"><div class="selection">{{sub.name}} for {{sub.cid.name}}</div></div>
+<div class="container">
+    <div class="options"  onclick="openWindow(0,{{sid}})">Take attendance</div>
+    <div class="options" onclick="openWindow(1)">Edit Past attendance</div>
+    <div class="options" onclick="openWindow(2)">View attendance</div>
+</div>
+<div id="blur_layer"></div>
+<div id="window">
+    <div id="close" onclick="closeWindow()">X</div>
+    <div class="inner-window">
+    <div id="window_content">
+        <div class="choice" id="1" onclick="selectMe(this)">hello</div>
+        <div class="choice" id='2' onclick="selectMe(this)">hello</div>
+    </div>
+    <button class="submit" id="submit" onclick="openNewWindow()"  >Submit</button>
+</div>
+    </div>
+    
+<script type="text/javascript" src="{% static '/mainapp/optionSelect.js' %}"></script>
+{% endblock content %}

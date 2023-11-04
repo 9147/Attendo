@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'mainapp/mark.css' %}">
+{% endblock css %}
+{% block content %}
+<div class="block-menu"><div class="block-one">
+<div class="block-one-one selected_choice" id="1" onclick="selectOne(this)" style="color:black;background-color:#00ffcd70;">
+Mark presence
+</div>
+<div class="block-one-two" id="2" onclick="selectOne(this)" style="color:black;background-color:#0033ff70;">
+Mark absence
+</div>
+</div>
+<div class="block_middle">
+        <div class="all_present" onclick="allPresent()">Make all present</div>
+        <div class="all_absent" onclick="allAbsent()">Make all absent</div>
+</div>
+<div class="block-two">
+<div class="inner-box"><input type="checkbox" id="rollno" checked onchange="updateData(this)"><label for="rollno" style="color:black;">Show Roll Number</label></div>
+<div class="inner-box"><input type="checkbox" id="name" checked onchange="updateData(this)"><label for="name" style="color:black;">Show Name</label></div>
+<div class="inner-box"><input type="checkbox" id="class" onchange="updateData(this)"><label for="class" style="color:black;">Show Class Name</label></div>
+</div>
+</div>
+<div class="block">
+    {% csrf_token %}
+<div class="inner-block">
+    {% for i in data %}
+    <div class="box absent" onclick="mark(this)">
+        <div class="box_rollno">{{i.rollno}}</div>
+        <div class="box_name">{{i.name}}</div>
+        <div class="box_class hide">{{i.cid.name}}</div>
+    </div>
+    {% endfor %}
+</div>
+<div class="submit" onclick="sendAttendance({{sid}})">Submit</div>
+</div>
+
+<script type="text/javascript" src="{% static 'jquery-3.7.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static '/login/login.js' %}"></script>
+<script type="text/javascript" src="{% static '/mainapp/mark.js' %}"></script>
+{% endblock content %}

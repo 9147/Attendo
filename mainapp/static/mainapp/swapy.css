@@ -1,0 +1,17 @@
+.card {
+    border-radius: 0.2rem;
+    aspect-ratio: 9/16;
+    background-color: red;
+    /* width: 20%; */
+    height: 70%;
+    cursor: pointer;
+}
+
+.card_container {
+    display: flex;
+    width: 100%;
+    margin-top: -2rem;
+    height: calc( 100vh - 7rem);
+    justify-content: center;
+    align-items: center;
+}

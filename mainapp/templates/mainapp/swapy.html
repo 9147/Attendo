@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'mainapp/swapy.css' %}">
+{% endblock css %}
+{% block content %}
+<div class="card_container">
+    <div class="card" id="card1" >
+
+    </div>
+</div>
+
+    <script type="text/javascript" src="{% static 'jquery-3.7.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static '/mainapp/swapy.js' %}"></script>
+     {% endblock content %}

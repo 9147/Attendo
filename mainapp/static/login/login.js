@@ -64,7 +64,7 @@ function login(){
         },
         error: function (jqXHR, textStatus, errorThrown) {
             var container=document.getElementById("container");
-            console.log(container);
+//            console.log(container);
             container.classList.add("shake");
             setTimeout(function(){
                 container.classList.remove("shake");

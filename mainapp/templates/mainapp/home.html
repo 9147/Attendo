@@ -6,15 +6,16 @@
 {% block content %}
     <div class="container">
         {% if user.is_superuser %}
-        <div class="options">Add/edit class</div>
-        <div class="options">Add/edit Professor</div>
-        <div class="options">Add/edit Subjects </div>
-        <div class="options">Add/Edit Students list</div>
+        <a class="options" href="/edit/class">Add/edit class</a>
+        <a class="options" href="/edit/prof">Add/edit Professor</a>
+        <a class="options" href="/edit/sub">Add/edit Subjects </a>
+        <a class="options" href="/edit/stud">Add/Edit Students list</a>
         {% else %}
         {% for i in data %}
-        <div class="options">{{i.name}}</div>
+        <a class="options" href="prof/options/{{i.sid}}" style="text-decoration: none;">{{i.name}} for {{i.cid.name}}</a>
         {% endfor %}
         {% endif %}
 
     </div>
+    <script type="text/javascript" src="{% static '/mainapp/home.js' %}"></script>
 {% endblock content %}

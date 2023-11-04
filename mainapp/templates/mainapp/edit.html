@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+{% load getattribute %}
+<link rel="stylesheet" href="{% static 'mainapp/edit.css' %}">
+{% endblock css %}
+{% block content %}
+<div class="add-section">
+    <a class="add" href="/editmain/{{option}}/00">Add +</a>
+    {% if option == 'stud' %}
+    <a class="add-multi">Add many +</a>
+    {%endif%}
+</div>
+<div class="block">
+        <table class="inner-block">
+        <thead>
+            <tr class="header">
+                <th></th>
+                {% for a in attr %}
+                <th>{{a}}</th>
+                {%endfor%}
+            </tr>
+        </thead>
+        <tbody>
+            {% for value in data %}
+            <tr>
+                <td class="edit-outer"><a class="edit" href="/editmain/{{option}}/{{value.pk}}">Edit</a></td>
+                {% for a in attr %}
+            <td>{{ value|getattribute:a }}</td>
+            {%endfor%}
+            </tr>
+            {%endfor%}
+            </tbody>
+        </table>
+</div>
+
+
+<script type="text/javascript" src="{% static 'jquery-3.7.1.min.js' %}"></script>
+<!-- <script type="text/javascript" src="{% static '/mainapp/edit.js' %}"></script> -->
+{% endblock content %}
