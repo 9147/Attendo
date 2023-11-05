@@ -14,8 +14,6 @@ class Class(models.Model):
     name = models.CharField(max_length=200)
     # id for class
     cid = models.CharField(max_length=200,primary_key=True)
-    # refers to user
-    students= models.ManyToManyField(Student,blank=True)
     def __str__(self):
         return self.cid+self.name
 
@@ -51,3 +49,11 @@ class Attendance(models.Model):
 
     def __str__(self):
         return str(self.rollno)+" "+str(self.date)+": " + self.status
+
+class StudentList(models.Model):
+    lid=models.IntegerField(primary_key=True)
+    name=models.CharField(max_length=200,null=True,blank=True)
+    student=models.ManyToManyField(Student,blank=False)
+    subjects=models.ManyToManyField(Subject,blank=True)
+    def __str__(self):
+        return str(self.lid)+self.name

@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from .models import Subject,Class,Student,Attendance
+from .models import Subject,Class,Student,Attendance,StudentList
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from datetime import date
@@ -44,7 +44,7 @@ def optionSelect(request,sid):
             if sub.partial:
                 data=sub.students.all()
             else:
-                data=sub.cid.students.all()
+                data=Student.objects.filter(cid=sub.cid)
             context={'data':data,'sub':sub,'sid':sid}
             return render(request,'mainapp/optionSelect.html',context=context)
         else:
@@ -60,10 +60,10 @@ def mark(request, sid):
             if sub.partial:
                 data=sub.students.all()
             else:
-                data=sub.cid.students.all()
+                data=Student.objects.filter(cid=sub.cid)
             context={'data':data,"sid":sid}
-            # for a in data:
-                # print(a.rollno)
+            for a in data:
+                print(a.rollno)
             return render(request,'mainapp/mark.html',context=context)
         else:
             return HttpResponse(status=404)
@@ -107,6 +107,9 @@ def edit(request,option):
     elif option=='prof':
         attr=['id', 'username', 'first_name', 'last_name', 'email']
         data=User.objects.all()
+    elif option=='list':
+        attr=[f.attname for f in StudentList._meta.fields]
+        data=StudentList.objects.all()
     return render(request,'mainapp/edit.html',{'option':option,'attr':attr,'data':data})
 
 @login_required(login_url="/login/")
@@ -199,3 +202,24 @@ def update(request,option,id):
             val.save()
     print('/edit/'+option+'/'+id)
     return HttpResponseRedirect('/edit/'+option)
+
+@login_required(login_url="/login/")
+def sheet(request,id):
+    print(id)
+    if id!=0:
+        data=StudentList.objects.get(lid=id).student.all()
+    else:
+        data=None
+    return render(request,'mainapp/sheet.html',{'id':id,'data':data,'class':Class.objects.all(),'subject':Subject.objects.filter(partial=True)})
+
+@login_required(login_url="/login/")
+def getData(request):
+    if request.method == 'POST':
+        if request.POST.get('data')=='class&subject':
+            data1=Class.objects.all()
+            data1=[{'cid':a.cid,'name':a.name} for a in data1]
+            data2=Subject.objects.all()
+            data2=[{'sid':a.sid,'name':a.name,'partial':a.partial} for a in data2]
+            data={'class':data1,'subject':data2}
+            return JsonResponse(data)
+    return HttpResponse(status=404)

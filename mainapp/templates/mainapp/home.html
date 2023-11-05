@@ -9,7 +9,8 @@
         <a class="options" href="/edit/class">Add/edit class</a>
         <a class="options" href="/edit/prof">Add/edit Professor</a>
         <a class="options" href="/edit/sub">Add/edit Subjects </a>
-        <a class="options" href="/edit/stud">Add/Edit Students list</a>
+        <a class="options" href="/edit/stud">Add/Edit Students</a>
+        <a class="options" href="/edit/list">Add/Edit Students list</a>
         {% else %}
         {% for i in data %}
         <a class="options" href="prof/options/{{i.sid}}" style="text-decoration: none;">{{i.name}} for {{i.cid.name}}</a>

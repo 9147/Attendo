@@ -16,3 +16,7 @@ class StudentAdmin(admin.ModelAdmin):
 @admin.register(Attendance)
 class AttendanceAdmin(admin.ModelAdmin):
     list_display = ('sid', 'rollno', 'date', 'status')
+
+@admin.register(StudentList)
+class StudentListAdmin(admin.ModelAdmin):
+    list_display = ('lid', 'name')

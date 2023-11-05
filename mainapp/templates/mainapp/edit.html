@@ -6,9 +6,9 @@
 {% endblock css %}
 {% block content %}
 <div class="add-section">
-    <a class="add" href="/editmain/{{option}}/00">Add +</a>
+    <a class="add" {% if option == 'list' %}href="/list/sheet/00" {% else %}href="/editmain/{{option}}/00"{% endif %}>Add +</a>
     {% if option == 'stud' %}
-    <a class="add-multi">Add many +</a>
+    <a class="add-multi" href="/edit/list">Add many +</a>
     {%endif%}
 </div>
 <div class="block">
@@ -24,7 +24,7 @@
         <tbody>
             {% for value in data %}
             <tr>
-                <td class="edit-outer"><a class="edit" href="/editmain/{{option}}/{{value.pk}}">Edit</a></td>
+                <td class="edit-outer"><a class="edit" {% if option == 'list' %}href="/list/sheet/{{value.pk}}" {% else %}href="/editmain/{{option}}/{{value.pk}}"{% endif %}>Edit</a></td>
                 {% for a in attr %}
             <td>{{ value|getattribute:a }}</td>
             {%endfor%}

@@ -20,7 +20,9 @@
     align-items: center;
     justify-content: space-between;
 }
+
 .form-table{
+    border-spacing: 0 16px;
     width:calc(100% - 4rem);
     margin:0 2rem;
 }
