@@ -36,14 +36,14 @@
             </div>
             {% for a in data %}
             <div class="del" onclick="DeleteRow(this)">&nbsp;-&nbsp;</div>
-            <input class="element" type="number" value="{{a.rollno}}" onchange="UpdateRow(this)" onkeyup="move(event,this)">
-            <input class="element" type="text" value="{{a.name}}" onkeyup="move(event,this)">
-            <input class="element" type="text" value="{{a.cid.name}}" onkeyup="move(event,this)">
+            <input class="element" type="number" value="{{a.rollno}}" onchange="UpdateRow(this)" id="input{{a.rollno}}" onkeyup="move(event)">
+            <input class="element" type="text" value="{{a.name}}" id="input{{a.name}}{{a.rollno}}" onkeyup="move(event)">
+            <input class="element" type="text" value="{{a.cid.name}}" id="input{{a.cid.name}}{{a.ro}" onkeyup="move(event)">
             {% endfor %}
             <div class="del" onclick="DeleteRow(this)">&nbsp;-&nbsp;</div>
-            <input class="element" type="number" value="" onchange="UpdateRow(this)" onkeyup="move(event,this)">
-            <input class="element" type="text" value="" onkeyup="move(event,this)">
-            <input class="element" type="text" value="" onkeyup="move(event,this)">
+            <input class="element" type="number" value="" id="input4" onchange="UpdateRow(this)" onkeyup="move(event)">
+            <input class="element" type="text" value="" id="input5" onkeyup="move(event)">
+            <input class="element" type="text" value="" id="input6" onkeyup="move(event)">
 
         </div>
     </div>

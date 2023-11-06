@@ -77,9 +77,12 @@ def attendance(request,sid):
             if request.user == Subject.objects.get(sid=sid).prof:
                 sub = Subject.objects.get(sid=sid)
                 if sub.partial:
+                    # change this to get data from studentlist
                     data = sub.students.all()
                 else:
-                    data = sub.cid.students.all()
+                    print(Student.objects.filter(cid=sub.cid))
+                    data = Student.objects.filter(cid=sub.cid)
+                    print("data:",data)
                 for a in data:
                     value = request.POST.get(str(a.rollno))
                     val=Attendance(sid=Subject.objects.get(sid=sid),rollno=a,date=date.today(),status=value)
@@ -215,11 +218,13 @@ def sheet(request,id):
 @login_required(login_url="/login/")
 def getData(request):
     if request.method == 'POST':
-        if request.POST.get('data')=='class&subject':
+        if request.POST.get('data')=='class&subject&student':
             data1=Class.objects.all()
             data1=[{'cid':a.cid,'name':a.name} for a in data1]
             data2=Subject.objects.all()
             data2=[{'sid':a.sid,'name':a.name,'partial':a.partial} for a in data2]
-            data={'class':data1,'subject':data2}
+            data3=Student.objects.all()
+            data3=[{'rollno':a.rollno,'name':a.name,'cid':a.cid.cid,'cidname':a.cid.name} for a in data3]
+            data = {'class': data1, 'subject': data2, 'student': data3}
             return JsonResponse(data)
     return HttpResponse(status=404)

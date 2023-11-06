@@ -1,5 +1,6 @@
+var input_count=7;
 selected_subjects={};
-$(document).ready(function() {
+function removeDefault() {
     $("input[type=number]").on("focus", function() {
       $(this).on("keydown", function(event) {
         if (event.keyCode === 38 || event.keyCode === 40) {
@@ -7,24 +8,43 @@ $(document).ready(function() {
         }
       });
     });
-  });
+  }
+$(document).ready(function(){removeDefault();});
+
 // move through the sheet using arrow keys
-function move(e,arg){
-    console.log($('#grid-container>input').index(arg));
+function move(e){
+    index_ele=$('#grid-container>input').index(e.srcElement);
+    ele=$('#grid-container>input');
+    len=ele.length
+    // console.log(len,index_ele);
     switch (e.keyCode) { 
         case 37: 
-            str = 'Left Key pressed!'; 
+            // str = 'Left Key pressed!'; 
+            index_ele-=1;
             break; 
         case 38: 
-            str = 'Up Key pressed!'; 
+            // str = 'Up Key pressed!'; 
+            index_ele-=3;
             break; 
         case 39: 
-            str = 'Right Key pressed!'; 
+            // str = 'Right Key pressed!'; 
+            index_ele+=1;
             break; 
         case 40: 
-            str = 'Down Key pressed!'; 
+            // str = 'Down Key pressed!'; 
+            index_ele+=3;
             break; 
+        default:
+            return;
+        
     } 
+    if(index_ele>=len){
+        index_ele-=len;
+    }
+    if(index_ele<0){
+        index_ele+=len;
+    }
+    ele[index_ele].focus();
 
 }
 
@@ -85,7 +105,7 @@ function getData(){
         type: 'POST',
         url: "/getdata/",
         data: {
-            data: 'class&subject',
+            data: 'class&subject&student',
         },
         success: function (data) {
             globalThis.data=data;
@@ -140,17 +160,19 @@ function AddNewRow(arg){
         ele.innerHTML="&nbsp;-&nbsp;";
         arg.parentElement.appendChild(ele);
         val=['number','text','text']
-        for(i=0;i<3;i++){
+        for(i=0;i<3;i++,input_count++){
             ele=document.createElement('input');
-            ele.addEventListener('keyup',e=>{move(e,ele)});
+            ele.id="input"+input_count;
             if(i==0){
                 ele.onchange=function(){UpdateRow(this)};
             }
             ele.classList.add("element");
             ele.type=val[i];
             arg.parentElement.appendChild(ele);
+            ele.addEventListener('keyup',e=>{move(e)});
         }
     }
+    removeDefault();
 }
 
 function DeleteRow(arg){
@@ -169,6 +191,7 @@ function UpdateRow(arg){
     i=$(arg).index();
     if(i+3==len){
         // console.log("Adding new row");
+        console.log(data.student);
         AddNewRow(arg);
     }
     else if($(arg).index()%4==2){
