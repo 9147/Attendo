@@ -3,11 +3,11 @@ from .models import *
 
 @admin.register(Class)
 class ClassAdmin(admin.ModelAdmin):
-    list_display = ('name', 'cid')
+    list_display = ('cid',)
 
 @admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
-    list_display = ('name', 'sid', 'cid', 'prof', 'partial')
+    list_display = ('name', 'sid', 'Class', 'prof', 'partial')
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):

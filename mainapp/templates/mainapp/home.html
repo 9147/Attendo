@@ -13,7 +13,7 @@
         <a class="options" href="/edit/list">Add/Edit Students list</a>
         {% else %}
         {% for i in data %}
-        <a class="options" href="prof/options/{{i.sid}}" style="text-decoration: none;">{{i.name}} for {{i.cid.name}}</a>
+        <a class="options" href="prof/options/{{i.sid}}" style="text-decoration: none;">{{i.name}} for {{i.Class}}</a>
         {% endfor %}
         {% endif %}
 

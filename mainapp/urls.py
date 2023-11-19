@@ -1,11 +1,13 @@
 from django.urls import path,include
 app_name = 'mainapp'
-from .views import home,about,docs,swapy,optionSelect,mark,attendance,edit,editmain,update,sheet,getData
+from .views import home,about,docs,swapy,optionSelect,mark,attendance,edit,editmain,update,sheet,getData,uploadData,demo
 
 urlpatterns = [
     path('', home, name='home'),
+    path('demo/',demo,name='demo'),
     path('getdata/',getData,name='getData'),
     path('edit/<str:option>', edit, name='edit'),
+    path('uploaddata/',uploadData,name='uploaddata'),
     path('editmain/<str:option>/<str:id>', editmain, name='editmain'),
     path('list/sheet/<int:id>',sheet,name='sheet'),
     path('editmain/<str:option>/send/<str:id>', update, name='update'),

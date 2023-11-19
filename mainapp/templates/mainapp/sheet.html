@@ -3,18 +3,30 @@
 {% block css %}
 {% load getattribute %}
 <link rel="stylesheet" href="{% static 'mainapp/sheet.css' %}">
+
 {% endblock css %}
 {% block content %}
+<div class="upload-block" id="upload_block"  ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" ondragleave="dragleave(event)">
+    <div class="cancle-box">
+        <div class="cancle" onclick="{document.getElementById('upload_block').style.display='none';}">x</div>
+    </div>
+    <div class="cover-drop">
+    <div class="box" id="text_drop">Drag drop the sheet here </div>
+    <div class="box">or</div>
+    <div class="flie-block"><label ><input type="file" name="file"> Click here  </label></div>
+</div>
+</div>
 <div class="menu-container">
     <div class="forward">
-        <div class="upload add-button">Add Student +</div>
-        <div class="upload add-button">Upload &#8593;</div>
+        <div id="listid" style="display: none;" >{{StudentList.lid}}</div>
+        <input type='text' maxlength="10" minlength="2" class="upload add-button" value="{{StudentList.name}}" id="name" placeholder="List Name">
+        <div class="upload add-button" onclick="getsheet()">Upload &#8593;</div>
         <div class="option add-button">
             <div class="add-button selected choice" onclick="selectMe(this)">For class</div>
-            <div class="add-button choice" onclick="selectMe(this)">For Partial Subject</div>
+            <div class="add-button choice" onclick="selectMe(this)" id="partialbutton">For Partial Subject</div>
         </div>
     </div>
-    <div class="submit add-button">
+    <div class="submit add-button" onclick="UploadData()">
         Submit
     </div>
 </div>
@@ -38,12 +50,12 @@
             <div class="del" onclick="DeleteRow(this)">&nbsp;-&nbsp;</div>
             <input class="element" type="number" value="{{a.rollno}}" onchange="UpdateRow(this)" id="input{{a.rollno}}" onkeyup="move(event)">
             <input class="element" type="text" value="{{a.name}}" id="input{{a.name}}{{a.rollno}}" onkeyup="move(event)">
-            <input class="element" type="text" value="{{a.cid.name}}" id="input{{a.cid.name}}{{a.ro}" onkeyup="move(event)">
+            <input class="element" type="text" value="{{a.Class}}" id="input{{a.Class}}{{a.rollno}}" onkeyup="move(event)" readonly>
             {% endfor %}
             <div class="del" onclick="DeleteRow(this)">&nbsp;-&nbsp;</div>
             <input class="element" type="number" value="" id="input4" onchange="UpdateRow(this)" onkeyup="move(event)">
             <input class="element" type="text" value="" id="input5" onkeyup="move(event)">
-            <input class="element" type="text" value="" id="input6" onkeyup="move(event)">
+            <input class="element" type="text" value="" id="input6" onkeyup="move(event)" readonly>
 
         </div>
     </div>
@@ -53,9 +65,9 @@
                 Selected class
             </div>
             <div class="select-conatiner">
-            <select name="class" id="class" class="class">
+            <select name="class" id="class" class="class" onchange="updatedClass(this)">
                 {% for a in class %}
-                <option value="{{a.id}}">{{a.name}}</option>
+                <option value="{{a.cid}}" {% if StudentList.Class.cid == a.cid %} selected {% endif %}>{{a.cid}}</option>
                 {% endfor %}
             </select>
         </div>
@@ -82,6 +94,7 @@
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.4/xlsx.full.min.js"></script>
 <script type="text/javascript" src="{% static 'jquery-3.7.1.min.js' %}"></script>
 <script type="text/javascript" src="{% static '/login/login.js' %}"></script>
 <script type="text/javascript" src="{% static '/mainapp/sheet.js' %}"></script>

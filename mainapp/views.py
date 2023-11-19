@@ -6,6 +6,9 @@ from django.http import JsonResponse
 from datetime import date
 
 @login_required(login_url="/login/")
+def demo(request):
+    return render(request,'mainapp/demo.html')
+@login_required(login_url="/login/")
 def home(request):
     data=Subject.objects.filter(prof=request.user)
     # print(Subject.objects.filter(prof=request.user))
@@ -44,7 +47,7 @@ def optionSelect(request,sid):
             if sub.partial:
                 data=sub.students.all()
             else:
-                data=Student.objects.filter(cid=sub.cid)
+                data=Student.objects.filter(Class=sub.Class)
             context={'data':data,'sub':sub,'sid':sid}
             return render(request,'mainapp/optionSelect.html',context=context)
         else:
@@ -60,7 +63,7 @@ def mark(request, sid):
             if sub.partial:
                 data=sub.students.all()
             else:
-                data=Student.objects.filter(cid=sub.cid)
+                data=Student.objects.filter(Class=sub.Class)
             context={'data':data,"sid":sid}
             for a in data:
                 print(a.rollno)
@@ -80,8 +83,8 @@ def attendance(request,sid):
                     # change this to get data from studentlist
                     data = sub.students.all()
                 else:
-                    print(Student.objects.filter(cid=sub.cid))
-                    data = Student.objects.filter(cid=sub.cid)
+                    print(Student.objects.filter(Class=sub.Class))
+                    data = Student.objects.filter(Class=sub.Class)
                     print("data:",data)
                 for a in data:
                     value = request.POST.get(str(a.rollno))
@@ -120,12 +123,13 @@ def editmain(request,option,id):
     data = None
     if option=='stud':
         attr=[f.attname for f in Student._meta.fields]
+        print(attr)
         type=['text','number','text']
         if id!='00':
             data=Student.objects.get(rollno=id)
     elif option=='class':
         attr=[f.attname for f in Class._meta.fields]
-        type=['text','text']
+        type=['text']
         if id!='00':
             data=Class.objects.get(cid=id)
     elif option=='sub':
@@ -146,31 +150,29 @@ def editmain(request,option,id):
 def update(request,option,id):
     if option=='stud':
         if id=='00':
-
-            val=Student(rollno=request.POST.get('rollno'),name=request.POST.get('name'),cid=Class.objects.get(cid=request.POST.get('cid_id')))
+            val=Student(rollno=request.POST.get('rollno'),name=request.POST.get('name'),Class=Class.objects.get(cid=request.POST.get('Class_id')))
             val.save()
         else:
-
             val=Student.objects.get(rollno=id)
             val.rollno=request.POST.get('rollno')
             val.name=request.POST.get('name')
-            val.cid=Class.objects.get(cid=request.POST.get('cid_id'))
+            val.Class=Class.objects.get(cid=request.POST.get('Class_id'))
             val.save()
     elif option=='class':
+        print(request.POST.get('cid'))
         if id=='00':
-            val=Class(name=request.POST.get('name'),cid=request.POST.get('cid'))
+            val=Class(cid=request.POST.get('cid'))
             val.save()
         else:
             val=Class.objects.get(cid=id)
-            val.name=request.POST.get('name')
             val.save()
     elif option=='sub':
         if id=='00':
             print(request.POST.get('name'))
-            print(Class.objects.get(cid=request.POST.get('cid_id')))
+            print(Class.objects.get(cid=request.POST.get('Class_id')))
             print(User.objects.get(id=request.POST.get('prof_id')))
             print(False if request.POST.get('partial') == None else True)
-            val=Subject(sid=request.POST.get('sid'),name=request.POST.get('name'),cid=Class.objects.get(cid=request.POST.get('cid_id')),prof=User.objects.get(id=request.POST.get('prof_id')),partial=False if request.POST.get('partial') == None else True)
+            val=Subject(sid=request.POST.get('sid'),name=request.POST.get('name'),Class=Class.objects.get(cid=request.POST.get('Class_id')),prof=User.objects.get(id=request.POST.get('prof_id')),partial=False if request.POST.get('partial') == None else True)
             val.save()
             # if val.partial:
             #     for a in val.cid.students.all():
@@ -179,7 +181,7 @@ def update(request,option,id):
         else:
             val=Subject.objects.get(sid=id)
             val.sname=request.POST.get('name')
-            val.cid=Class.objects.get(cid=request.POST.get('cid_id'))
+            val.cid=Class.objects.get(cid=request.POST.get('Class_id'))
             val.prof=User.objects.get(id=request.POST.get('prof_id'))
             val.partial=False if request.POST.get('partial') == None else True
             print("partial:",False if request.POST.get('partial') == None else True)
@@ -211,20 +213,66 @@ def sheet(request,id):
     print(id)
     if id!=0:
         data=StudentList.objects.get(lid=id).student.all()
+        list=StudentList.objects.get(lid=id)
     else:
         data=None
-    return render(request,'mainapp/sheet.html',{'id':id,'data':data,'class':Class.objects.all(),'subject':Subject.objects.filter(partial=True)})
+        list=None
+    return render(request,'mainapp/sheet.html',{'id':id,'data':data,'StudentList':list,'class':Class.objects.all(),'subject':Subject.objects.filter(partial=True)})
 
 @login_required(login_url="/login/")
 def getData(request):
     if request.method == 'POST':
         if request.POST.get('data')=='class&subject&student':
             data1=Class.objects.all()
-            data1=[{'cid':a.cid,'name':a.name} for a in data1]
+            data1=[{'cid':a.cid} for a in data1]
             data2=Subject.objects.all()
             data2=[{'sid':a.sid,'name':a.name,'partial':a.partial} for a in data2]
             data3=Student.objects.all()
-            data3=[{'rollno':a.rollno,'name':a.name,'cid':a.cid.cid,'cidname':a.cid.name} for a in data3]
+            data3=[{'rollno':a.rollno,'name':a.name,'cid':a.Class.cid} for a in data3]
             data = {'class': data1, 'subject': data2, 'student': data3}
             return JsonResponse(data)
+        elif request.POST.get('data')=='ListType&listsubjects':
+            # print('obj:',StudentList.objects.get(lid=request.POST.get('id')).subjects.all())
+            # val=StudentList.objects.get(lid=request.POST.get('id'))
+            data=StudentList.objects.get(lid=request.POST.get('id')).subjects.all()
+            data=[{'sid':a.sid,'name':a.name} for a in data]
+            return JsonResponse({'type':StudentList.objects.get(lid=request.POST.get('id')).is_classList,'data':data})
+    return HttpResponse(status=404)
+
+@login_required(login_url="/login/")
+def uploadData(request):
+    if request.method== 'POST':
+        data=request.POST.get('data')
+        data=eval(data)
+        print(data)
+        for a in data['student']:
+            if Student.objects.filter(rollno=a).exists():
+                ele=Student.objects.get(rollno=a)
+                ele.name=data['student'][a]['name']
+                ele.Class=Class.objects.get(cid=data['student'][a]['class'])
+                ele.save()
+                # print(ele)
+            else:
+                val=Student(rollno=a,name=data['student'][a]['name'],Class=Class.objects.get(cid=data['student'][a]['class']))
+                val.save()
+                # print(val)
+        if(data['id']!=''):
+            list=StudentList.objects.get(lid=data['id'])
+            list.name=data['listName']
+            list.student.clear()
+            list.subjects.clear()
+        else:
+            list=StudentList(name=data['listName'])
+        list.is_classList = 0 == data['choice']
+        if 0 == data['choice']:
+            list.Class = Class.objects.get(cid=data['class'])
+        else:
+            for a in data['student']:
+                std=Student.objects.get(rollno=a)
+                list.student.add(std)
+            for a in data['subject']:
+                sub=Subject.objects.get(sid=a)
+                list.subjects.add(sub)
+        list.save()
+        return JsonResponse({'data':'success'})
     return HttpResponse(status=404)

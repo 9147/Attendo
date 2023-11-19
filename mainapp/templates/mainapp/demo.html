@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'mainapp/demo.css' %}">
+{% endblock css %}
+{% block content %}
+    
+<input type="file" id="fileUpload" />
+<input type="button" id="upload" value="Upload" onclick="UploadProcess()" />
+<br/>
+
+<div id="ExcelTable"></div>
+
+<script type="text/javascript" src="{% static 'jquery-3.7.1.min.js' %}"></script>
+<script type="text/javascript" src="{% static '/mainapp/demo.js' %}"></script>
+{% endblock content %}
