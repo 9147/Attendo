@@ -1,5 +1,5 @@
 # 📊 Attendo: Revolutionizing Attendance Management in Education
-![Uploading attendo.png…]()
+![attendo](https://github.com/9147/Attendo/assets/42509321/c61a6230-8943-4fb0-beca-bcefd419512a)
 
 
 
