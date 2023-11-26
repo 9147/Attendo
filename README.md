@@ -1,5 +1,6 @@
 # 📊 Attendo: Revolutionizing Attendance Management in Education
-![slp_site](https://github.com/9147/Attendo/assets/42509321/99d5a35d-8009-47c0-a7e0-d66f5b2ee39e)
+![Uploading attendo.png…]()
+
 
 
 Empower educators and administrators with Attendo, a cutting-edge attendance management system designed for educational institutions. With a robust suite of features, Attendo simplifies the complexities of attendance tracking and streamlines administrative tasks.
