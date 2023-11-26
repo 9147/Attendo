@@ -228,7 +228,7 @@ function move(e){
         default:
             return;
         
-    } 
+    }
     if(index_ele>=len){
         index_ele-=len;
     }

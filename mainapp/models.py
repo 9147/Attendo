@@ -49,11 +49,11 @@ class Attendance(models.Model):
         return str(self.rollno)+" "+str(self.date)+": " + self.status
 
 class StudentList(models.Model):
-    lid=models.IntegerField(primary_key=True)
+    # lid=models.IntegerField(primary_key=True,auto_created=True)
     name=models.CharField(max_length=200,null=True,blank=True)
     is_classList=models.BooleanField(default=True)
     Class=models.ForeignKey(Class,on_delete=models.CASCADE,null=True,blank=True)
     student=models.ManyToManyField(Student,blank=True)
     subjects=models.ManyToManyField(Subject,blank=True)
     def __str__(self):
-        return str(self.lid)+self.name
+        return self.name

@@ -212,8 +212,8 @@ def update(request,option,id):
 def sheet(request,id):
     print(id)
     if id!=0:
-        data=StudentList.objects.get(lid=id).student.all()
-        list=StudentList.objects.get(lid=id)
+        data=StudentList.objects.get(id=id).student.all()
+        list=StudentList.objects.get(id=id)
     else:
         data=None
         list=None
@@ -234,9 +234,9 @@ def getData(request):
         elif request.POST.get('data')=='ListType&listsubjects':
             # print('obj:',StudentList.objects.get(lid=request.POST.get('id')).subjects.all())
             # val=StudentList.objects.get(lid=request.POST.get('id'))
-            data=StudentList.objects.get(lid=request.POST.get('id')).subjects.all()
+            data=StudentList.objects.get(id=request.POST.get('id')).subjects.all()
             data=[{'sid':a.sid,'name':a.name} for a in data]
-            return JsonResponse({'type':StudentList.objects.get(lid=request.POST.get('id')).is_classList,'data':data})
+            return JsonResponse({'type':StudentList.objects.get(id=request.POST.get('id')).is_classList,'data':data})
     return HttpResponse(status=404)
 
 @login_required(login_url="/login/")
@@ -257,12 +257,13 @@ def uploadData(request):
                 val.save()
                 # print(val)
         if(data['id']!=''):
-            list=StudentList.objects.get(lid=data['id'])
+            list=StudentList.objects.get(id=data['id'])
             list.name=data['listName']
             list.student.clear()
             list.subjects.clear()
         else:
             list=StudentList(name=data['listName'])
+            list.save()
         list.is_classList = 0 == data['choice']
         if 0 == data['choice']:
             list.Class = Class.objects.get(cid=data['class'])
@@ -274,5 +275,26 @@ def uploadData(request):
                 sub=Subject.objects.get(sid=a)
                 list.subjects.add(sub)
         list.save()
+        return JsonResponse({'data':'success'})
+    return HttpResponse(status=404)
+
+@login_required(login_url="/login/")
+def deletedata(request):
+    if request.method=='POST':
+        id=request.POST.get('id')
+        type=request.POST.get('type')
+        print(type,id)
+        if type=='sheet':
+            StudentList.objects.get(id=id).delete()
+        elif type=='stud':
+            Student.objects.get(rollno=id).delete()
+        elif type=='sub':
+            Subject.objects.get(sid=id).delete()
+        elif type=='class':
+            Class.objects.get(cid=id).delete()
+        elif type=='prof':
+            User.objects.get(id=id).delete()
+        else:
+            return HttpResponse(status=404)
         return JsonResponse({'data':'success'})
     return HttpResponse(status=404)

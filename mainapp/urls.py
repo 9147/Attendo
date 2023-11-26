@@ -1,9 +1,10 @@
 from django.urls import path,include
 app_name = 'mainapp'
-from .views import home,about,docs,swapy,optionSelect,mark,attendance,edit,editmain,update,sheet,getData,uploadData,demo
+from .views import *
 
 urlpatterns = [
     path('', home, name='home'),
+    path('deletedata/',deletedata,name='deletedata'),
     path('demo/',demo,name='demo'),
     path('getdata/',getData,name='getData'),
     path('edit/<str:option>', edit, name='edit'),

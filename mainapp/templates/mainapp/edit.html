@@ -11,6 +11,7 @@
     <a class="add-multi" href="/edit/list">Add many +</a>
     {%endif%}
 </div>
+{% csrf_token %}
 <div class="block">
         <table class="inner-block">
         <thead>
@@ -19,6 +20,7 @@
                 {% for a in attr %}
                 <th>{{a}}</th>
                 {%endfor%}
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +30,7 @@
                 {% for a in attr %}
             <td>{{ value|getattribute:a }}</td>
             {%endfor%}
+            <td class="edit-outer"><a class="edit" href="" onclick="deletethis(this)">delete</a></td>
             </tr>
             {%endfor%}
             </tbody>
@@ -36,5 +39,6 @@
 
 
 <script type="text/javascript" src="{% static 'jquery-3.7.1.min.js' %}"></script>
-<!-- <script type="text/javascript" src="{% static '/mainapp/edit.js' %}"></script> -->
+<script type="text/javascript" src="{% static '/login/login.js' %}"></script>
+<script type="text/javascript" src="{% static '/mainapp/edit.js' %}"></script>
 {% endblock content %}

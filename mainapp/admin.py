@@ -19,4 +19,4 @@ class AttendanceAdmin(admin.ModelAdmin):
 
 @admin.register(StudentList)
 class StudentListAdmin(admin.ModelAdmin):
-    list_display = ('lid', 'name')
+    list_display = ('id', 'name')
